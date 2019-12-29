@@ -15,11 +15,18 @@ const addTransactionForDividend = dividend => {
 }
 
 const calculateDividendsForCompetitor = competitor => {
-    const { controlled, growth, history, ownedStocks, stockVolume, name } = competitor
+    const { controlled, growth, history, stockTransactions, stockVolume, name } = competitor
 
     if (controlled) {
         return 0
     }
+	
+	let ownedStocks = 0
+	
+	for (let i = 0; i < stockTransactions.length; i++) {
+		const transaction = stockTransactions[i]
+		ownedStocks += transaction.amount
+	}
 
     if (ownedStocks === 0) {
         return 0
